@@ -15,8 +15,6 @@ function App() {
       return data.json()
     })
     setCityData(response)
-    console.log(response.name)
-    
   }
 
   return ( <>

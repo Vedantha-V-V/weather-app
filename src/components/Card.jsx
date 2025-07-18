@@ -1,5 +1,5 @@
 import React from 'react'
-import { sunny,rainy,cloudy,stormy } from '../assets'
+import { sunny,rainy,cloudy,stormy, thermometer, humidity,sealevel } from '../assets'
 import './Card.css'
 
 const Card = ({data}) => {
@@ -25,15 +25,19 @@ const Card = ({data}) => {
 
             <div class="card-header">
                 <span>{data.name}</span>
-                <span>{data.weather[0].main}</span>
+                <span>{data.weather[0].description}</span>
             </div>
 
             <div className="card-details">
-                <span>Lat: {data.coord.lat}</span>
-                <span>Lon: {data.coord.lon}</span>
+                <span style={{color:"rgba(87, 77, 51, 1)"}}>Lat: {data.coord.lat}</span>
+                <span style={{color:"rgba(87, 77, 51, 1)"}}>Lon: {data.coord.lon}</span>
             </div>
 
-            {/* <span class="details">March 13</span> */}
+            <div className="card-details">
+                <span className="temperature"><img src={sealevel} width={25} height={25}/><p style={{color:"lightblue"}}>&nbsp;{data.main.sea_level}</p></span>
+                <span className="temperature"><img src={thermometer} width={25} height={25}/><p style={{color:"greenyellow"}}>&nbsp;{data.main.temp}</p></span>
+                <span className="temperature"><img src={humidity} width={20} height={20}/><p style={{color:"#4c9beb"}}>&nbsp;{data.main.humidity}</p></span>
+            </div>
 
             <span class="temp">{data.sys.country}</span>
 
