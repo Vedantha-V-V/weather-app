@@ -20,7 +20,7 @@ function App() {
   }
 
   return ( <>
-    <h1 className="header">Weatherly</h1>
+    <h1 className="header">WeatherNow</h1>
     <div className="main">
     <div>
       {cityData?<Card data={cityData}/>:<NoCard/>}
