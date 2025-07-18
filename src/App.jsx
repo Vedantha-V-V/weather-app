@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Card from './components/Card'
 import './App.css'
+import NoCard from './components/NoCard'
 
 
 
@@ -19,10 +20,10 @@ function App() {
   }
 
   return ( <>
-    <h1>Weatherly</h1>
+    <h1 className="header">Weatherly</h1>
     <div className="main">
     <div>
-      {cityData?<Card data={cityData}/>:null}
+      {cityData?<Card data={cityData}/>:<NoCard/>}
     </div>
     <div className="form">
       <h2>Enter the City</h2>
@@ -30,7 +31,7 @@ function App() {
         {/* register your input into the hook by invoking the "register" function */}
         {/* <label id="city" className="formlabel">City</label> */}
           <input className="input-wrapper" {...register("city", { required: true })} placeholder="City?"/>
-          {errors.city && <span>Please enter a City</span>}
+          {errors.city && <span className="error">Please enter a City</span>}
           <button className="btn" type="submit">Enter</button>
       </form>
     </div>
