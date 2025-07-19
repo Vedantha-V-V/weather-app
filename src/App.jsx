@@ -11,10 +11,18 @@ function App() {
   const {register, handleSubmit, formState: { errors }} = useForm()
 
   const findCity = async(data) => {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${data.city}&appid=${import.meta.env.VITE_API_KEY}`).then((data)=>{
+    try{
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${data.city}&appid=${import.meta.env.VITE_API_KEY}`).then((data)=>{
       return data.json()
-    })
-    setCityData(response)
+      })
+      console.log(response)
+      if(response.cod==200){
+        setCityData(response)
+      }
+    }catch(err){
+      console.log(err)
+    }
+    
   }
 
   return ( <>

@@ -12,18 +12,18 @@ const Card = ({data}) => {
     }else if(weather==='Rain'){
         imgsrc=rainy
     }
-  return (<div class="card">
-            <div class="container">
-                <div class="icon">
+  return (<div className="card">
+            <div className="container">
+                <div className="icon">
                     <img src={imgsrc} height={100} width={100}/>
                 </div>
                 
-                <div class="cloud back">
+                <div className="cloud back">
                     
                 </div>
             </div>
 
-            <div class="card-header">
+            <div className="card-header">
                 <span>{data.name}</span>
                 <span>{data.weather[0].description}</span>
             </div>
@@ -39,9 +39,9 @@ const Card = ({data}) => {
                 <span className="temperature"><img src={humidity} width={20} height={20}/><p style={{color:"#4c9beb"}}>&nbsp;{data.main.humidity}</p></span>
             </div>
 
-            <span class="temp">{data.sys.country}</span>
+            <span className="temp">{data.sys.country}</span>
 
-            <div class="temp-scale">
+            <div className="temp-scale">
                 <span>Celsius</span>
             </div>
         </div>

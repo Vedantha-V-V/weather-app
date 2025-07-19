@@ -2,19 +2,19 @@ import React from 'react'
 import './Card.css'
 
 const NoCard = () => {
-  return (<div class="card">
-            <div class="container">
-                <div class="cloud front">
+  return (<div className="card">
+            <div className="container">
+                <div className="cloud front">
 
                 </div>
-                <span class="sun sunshine"></span>
-                <span class="sun"></span>
-                <div class="cloud back">
+                <span className="sun sunshine"></span>
+                <span className="sun"></span>
+                <div className="cloud back">
 
                 </div>
             </div>
 
-            <div class="temp-scale">
+            <div className="temp-scale">
                 <span>Celsius</span>
             </div>
         </div>
