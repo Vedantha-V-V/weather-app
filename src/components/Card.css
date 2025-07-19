@@ -11,9 +11,9 @@
   cursor: pointer;
 }
 
-.card:hover {
+/* .card:hover {
   transform: scale(1.05);
-}
+} */
 
 .container {
   width: 250px;
