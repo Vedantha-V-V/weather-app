@@ -1,48 +1,58 @@
 import { useState } from 'react'
-import { useForm } from "react-hook-form"
-import Card from './components/Card'
 import './App.css'
-import NoCard from './components/NoCard'
-
-
 
 function App() {
-  const [cityData, setCityData] = useState()
-  const {register, handleSubmit, formState: { errors }} = useForm()
+  const [query, setQuery] = useState('')
+  const [weather, setWeather] = useState({})
 
-  const findCity = async(data) => {
-    try{
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${data.city}&appid=${import.meta.env.VITE_API_KEY}`).then((data)=>{
-      return data.json()
-      })
-      console.log(response)
-      if(response.cod==200){
-        setCityData(response)
-      }
-    }catch(err){
-      console.log(err)
-    }
-    
+  const dateBuilder = (d) =>{
+    const months = ["January","February", "March", "April", "May", "June", "July", 
+      "August", "September", "October", "November", "December"]
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const date = d.getDate()
+    let day = days[d.getDay()]
+    let month = months[d.getMonth()]
+    let year = d.getFullYear()
+
+    return `${day} ${date} ${month} ${year}`
+
   }
 
-  return ( <>
-    <h1 className="header">WeatherNow</h1>
-    <div className="main">
-    <div>
-      {cityData?<Card data={cityData}/>:<NoCard/>}
+  const findCity = event => {
+    if(event.key === "Enter"){
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${query}&units=metric&appid=${import.meta.env.VITE_API_KEY}`)
+      .then((data)=>{return data.json()})
+      .then(result =>{setWeather(result)
+        setQuery('')})
+    }
+  }
+
+  return (
+    <div className={(typeof weather.main != 'undefined')?((weather.main.temp > 16)?'body-warm':'body'):'body'}>
+      <div className={(typeof weather.main != 'undefined')?((weather.main.temp > 16)?'app-warm':'app'):'app'}>
+        <main>
+          <div className="search-box">
+            <input className="search-bar" placeholder="Search..." 
+            onChange={e=>setQuery(e.target.value)} value={query}
+            onKeyDown={findCity}/>
+          </div>
+          {(typeof weather.main != "undefined")?(
+            <div>
+              <div className="location-box">
+                <div className="location">{weather.name}, {weather.sys.country}</div>
+                <div className="date">{dateBuilder(new Date())}</div>
+              </div>
+              <div className="weather-box">
+                <div className="temp">
+                  {Math.round(weather.main.temp)}°C
+                </div>
+                <div className="weather">{weather.weather[0].main}</div>
+              </div>
+            </div>
+      ):('')} 
+      </main>
+      </div>
     </div>
-    <div className="form">
-      <h2>Enter the City</h2>
-      <form onSubmit={handleSubmit(findCity)}>
-        {/* register your input into the hook by invoking the "register" function */}
-        {/* <label id="city" className="formlabel">City</label> */}
-          <input className="input-wrapper" {...register("city", { required: true })} placeholder="City?"/>
-          {errors.city && <span className="error">Please enter a City</span>}
-          <button className="btn" type="submit">Enter</button>
-      </form>
-    </div>
-  </div>
-  </>
   )
 }
 
